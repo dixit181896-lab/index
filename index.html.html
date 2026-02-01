@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KindyHand | Skill Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
+    <style>
+        :root { --neon: #39FF14; --dark: #000000; --card: #121212; }
+        body { 
+            background: var(--dark); color: white; 
+            font-family: 'Lexend', sans-serif; margin: 0; 
+            overflow-x: hidden;
+        }
+
+        .neon-text { color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+        .cozy-card { background: var(--card); border-radius: 30px; border: 2px solid #222; padding: 32px; transition: 0.3s ease; }
+        .cozy-card:hover { border-color: var(--neon); transform: translateY(-4px); }
+        .premium-glow { border: 3px solid var(--neon); box-shadow: 0 0 25px rgba(57, 255, 20, 0.3); }
+        
+        .btn-main { background: var(--neon); color: black; font-weight: 700; border-radius: 18px; cursor: pointer; transition: 0.2s; }
+        .btn-main:hover { box-shadow: 0 0 20px var(--neon); transform: scale(1.02); }
+
+        /* REELS SYSTEM */
+        .reel-container { height: 70vh; scroll-snap-type: y mandatory; overflow-y: scroll; border-radius: 30px; border: 3px solid #1a1a1a; }
+        .reel-video { 
+            scroll-snap-align: start; height: 100%; display: flex; 
+            flex-direction: column; justify-content: flex-end; 
+            padding: 40px; background: linear-gradient(to top, #000 50%, transparent);
+        }
+
+        /* CHAT SYSTEM */
+        .chat-container { height: 550px; border-radius: 30px; background: #0a0a0a; border: 2px solid #1a1a1a; overflow: hidden; }
+        .msg-user { background: var(--neon); color: black; border-radius: 20px 20px 4px 20px; padding: 16px 20px; font-weight: 700; align-self: flex-end; }
+        .msg-them { background: #222; color: white; border-radius: 20px 20px 20px 4px; padding: 16px 20px; align-self: flex-start; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--neon); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav class="p-6 flex justify-between items-center bg-black/95 sticky top-0 z-50 border-b border-zinc-900">
+        <div class="text-3xl font-black neon-text italic">KH</div>
+        <div class="hidden md:flex gap-10 text-lg font-bold uppercase tracking-tight">
+            <button onclick="nav('market')" class="hover:neon-text transition">Market</button>
+            <button onclick="nav('reels')" class="hover:neon-text transition">Reels</button>
+            <button onclick="nav('chat')" class="hover:neon-text transition">Chat</button>
+        </div>
+        <button onclick="toggleModal()" class="btn-main px-6 py-3 text-sm uppercase tracking-wider">Post Talent</button>
+    </nav>
+
+    <main class="p-6 max-w-6xl mx-auto w-full min-h-screen">
+        
+        <div id="sec-market" class="block space-y-8">
+            <h2 class="text-5xl font-black">LOCAL <span class="neon-text">SKILLS</span></h2>
+            <div id="feed" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="cozy-card premium-glow">
+                    <div class="flex justify-between items-center mb-4 text-sm font-bold">
+                        <span class="text-neon bg-neon/10 px-2 py-1 rounded">PRO VERIFIED</span>
+                        <span class="text-gray-500">@CyberStrum</span>
+                    </div>
+                    <h3 class="text-3xl font-black uppercase">Electric Guitar</h3>
+                    <p class="text-lg text-gray-400 mt-3">Offering advanced soloing. <br>Needs: <span class="text-white font-bold underline decoration-neon">UI Design Help</span></p>
+                    <button onclick="nav('chat')" class="mt-8 w-full py-4 rounded-xl border-2 border-neon text-neon font-bold uppercase hover:bg-neon hover:text-black transition">Open Chat</button>
+                </div>
+
+                <div class="cozy-card">
+                    <div class="mb-4 text-sm font-bold text-gray-600">@ChefMario</div>
+                    <h3 class="text-3xl font-black uppercase">Pasta Making</h3>
+                    <p class="text-lg text-gray-400 mt-3">Authentic Italian sessions. <br>Needs: <span class="text-white font-bold underline decoration-gray-500">Language Swap</span></p>
+                    <button onclick="nav('chat')" class="mt-8 w-full py-4 rounded-xl border-2 border-zinc-700 text-gray-400 font-bold uppercase hover:border-neon hover:text-neon transition">Connect</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="sec-reels" class="hidden space-y-8">
+            <h2 class="text-5xl font-black">SKILL <span class="neon-text">REELS</span></h2>
+            <div class="reel-container">
+                <div class="reel-video">
+                    <h3 class="text-4xl font-black uppercase">Boxing Fundamentals</h3>
+                    <p class="text-xl text-gray-400 mt-2">Needs: <span class="text-white">Logo Design</span></p>
+                    <button class="btn-main mt-6 py-4 px-8 text-lg w-fit">SWAP NOW</button>
+                </div>
+                <div class="reel-video">
+                    <h3 class="text-4xl font-black uppercase">React JS Logic</h3>
+                    <p class="text-xl text-gray-400 mt-2">Needs: <span class="text-white">Yoga Teacher</span></p>
+                    <button class="btn-main mt-6 py-4 px-8 text-lg w-fit">SWAP NOW</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="sec-chat" class="hidden space-y-8">
+            <h2 class="text-5xl font-black">MESSAGES</h2>
+            <div class="chat-container flex">
+                <div class="w-1/3 border-r border-zinc-900 p-6 space-y-4">
+                    <div class="p-4 bg-neon text-black rounded-2xl font-bold text-center">ALEX_PRO</div>
+                    <div class="p-4 bg-zinc-900 rounded-2xl font-bold text-center opacity-40">SARAH_99</div>
+                </div>
+                <div class="flex-1 flex flex-col p-6">
+                    <div id="chat-flow" class="flex-1 flex flex-col gap-6 overflow-y-auto pr-2">
+                        <div class="msg-them">Hey! I'm interested in the guitar swap. I can help with UI!</div>
+                    </div>
+                    <div class="mt-6 flex gap-4">
+                        <input id="chatIn" type="text" placeholder="Send a message..." class="flex-1 bg-zinc-900 rounded-full px-6 py-3 text-lg outline-none border-2 border-transparent focus:border-neon">
+                        <button onclick="sendMsg()" class="text-neon text-4xl"><i class="fas fa-arrow-circle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="postModal" class="hidden fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-6">
+        <div class="bg-zinc-900 p-10 rounded-[40px] border-4 border-neon w-full max-w-xl">
+            <h2 class="text-3xl font-black neon-text mb-6 uppercase text-center">New Signal</h2>
+            <div class="space-y-4">
+                <input id="sIn" type="text" placeholder="I OFFER..." class="w-full bg-black p-4 rounded-xl text-lg border-2 border-zinc-800 focus:border-neon outline-none">
+                <input id="wIn" type="text" placeholder="I WANT..." class="w-full bg-black p-4 rounded-xl text-lg border-2 border-zinc-800 focus:border-neon outline-none">
+                <div class="flex items-center gap-4 p-4 bg-black rounded-xl border border-zinc-800">
+                    <input type="checkbox" id="pIn" class="w-6 h-6 accent-[#39FF14]">
+                    <label class="font-bold text-sm uppercase">Enable Premium Glow</label>
+                </div>
+                <div class="flex gap-4 pt-4">
+                    <button onclick="publish()" class="btn-main flex-1 py-4 text-xl uppercase">Broadcast</button>
+                    <button onclick="toggleModal()" class="text-gray-500 font-bold px-4">X</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function nav(id) {
+            ['market', 'reels', 'chat'].forEach(s => {
+                document.getElementById('sec-' + s).style.display = 'none';
+            });
+            document.getElementById('sec-' + id).style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function toggleModal() {
+            document.getElementById('postModal').classList.toggle('hidden');
+        }
+
+        function publish() {
+            const s = document.getElementById('sIn').value;
+            const w = document.getElementById('wIn').value;
+            const p = document.getElementById('pIn').checked;
+            if(!s || !w) return;
+
+            const card = document.createElement('div');
+            card.className = `cozy-card ${p ? 'premium-glow' : ''}`;
+            card.innerHTML = `
+                <div class="mb-4 text-sm font-bold text-gray-500 uppercase">${p ? 'PREMIUM_LIVE' : 'USER_NEW'}</div>
+                <h3 class="text-3xl font-black uppercase">${s}</h3>
+                <p class="text-lg text-gray-400 mt-3 italic">For: <span class="text-white">${w}</span></p>
+                <button class="mt-8 w-full py-4 rounded-xl border-2 border-zinc-800 text-gray-500 font-bold">Manage Signal</button>
+            `;
+            document.getElementById('feed').prepend(card);
+            toggleModal();
+            document.getElementById('sIn').value = '';
+            document.getElementById('wIn').value = '';
+        }
+
+        function sendMsg() {
+            const input = document.getElementById('chatIn');
+            if(!input.value) return;
+            const msg = document.createElement('div');
+            msg.className = "msg-user";
+            msg.innerText = input.value;
+            document.getElementById('chat-flow').appendChild(msg);
+            input.value = '';
+            document.getElementById('chat-flow').scrollTop = document.getElementById('chat-flow').scrollHeight;
+        }
+    </script>
+</body>
+</html>
